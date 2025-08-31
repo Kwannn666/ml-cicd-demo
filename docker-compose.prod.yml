@@ -1,0 +1,13 @@
+services:
+  ml-api:
+    image: ghcr.io/OWNER/REPO:latest
+    container_name: ml-api
+    restart: unless-stopped
+    ports:
+      - "8000:8000"
+    environment:
+      USE_REGISTRY: "0"
+      # If using Model Registry:
+      # USE_REGISTRY: "1"
+      # MLFLOW_TRACKING_URI: "http://mlflow:5000"
+      # MODEL_URI: "models:/demo_model/Production"
