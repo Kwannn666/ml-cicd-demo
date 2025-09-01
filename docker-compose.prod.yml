@@ -1,6 +1,6 @@
 services:
   ml-api:
-    image: ghcr.io/Kwannn666/ml-cicd-demo:latest
+    image: ghcr.io/kwannn666/ml-cicd-demo:latest
     container_name: ml-api
     restart: unless-stopped
     ports:
