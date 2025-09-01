@@ -40,20 +40,12 @@ jobs:
           name: model-artifacts
           path: artifacts/
 
-      - name: Login to GHCR (use GITHUB_TOKEN)
-        uses: docker/login-action@v3
-        with:
-          registry: ghcr.io
-          username: ${{ github.actor }}
-          password: ${{ secrets.GITHUB_TOKEN }}
-
-      - name: Build & Push Image
-        uses: docker/build-push-action@v6
-        with:
-          context: .
-          file: Dockerfile
-          push: true
-          tags: ghcr.io/${{ toLower(github.repository) }}:latest
+      - name: Compute lowercase repo
+        id: lc
+        shell: bash
+        run: |
+          echo "repo_lc=${GITHUB_REPOSITORY,,}" >> "$GITHUB_OUTPUT"
+          echo "Will tag as ghcr.io/${GITHUB_REPOSITORY,,}:latest"
 
       - name: Login to GHCR (use GITHUB_TOKEN)
         uses: docker/login-action@v3
@@ -68,4 +60,4 @@ jobs:
           context: .
           file: Dockerfile
           push: true
-          tags: ghcr.io/${{ github.repository }}:latest
+          tags: ghcr.io/${{ steps.lc.outputs.repo_lc }}:latest
