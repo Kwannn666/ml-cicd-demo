@@ -10,7 +10,8 @@ TARGET = os.getenv("TARGET", "target")
 ARTS = "artifacts"; os.makedirs(ARTS, exist_ok=True)
 
 def main():
-    mlflow.set_tracking_uri(os.getenv("MLFLOW_TRACKING_URI", "mlruns"))
+    uri = os.getenv("MLFLOW_TRACKING_URI") or "mlruns"
+    mlflow.set_tracking_uri(uri)
     mlflow.set_experiment(os.getenv("MLFLOW_EXPERIMENT", "demo"))
 
     df = pd.read_csv(DATA)
